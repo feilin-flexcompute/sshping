@@ -722,6 +722,12 @@ int run_echo_test(ssh_channel & chn) {
     printf("Average-Deviation: %18s\n", fmtnum(stddev,      -9, "s").c_str());
     printf("Maximum-Latency:   %18s\n", fmtnum(max_latency, -9, "s").c_str());
     printf("Echo-Count:        %17s\n", fmtnum(num_sent,     0, "B").c_str());
+    uint32_t nLargest = 20;
+    printf("Largest %u latencies are printed below:\n", nLargest);
+    for(uint32_t j=0;j<nLargest;j++){
+        uint64_t tmp = latencies[num_sent - 1-j];
+        printf("latency:   %18s\n", fmtnum(tmp, -9, "s").c_str());
+    }
 
     if (ping_summary) {
         printf("rtt min/avg/max/mdev = %ld.%03ld/%lu.%03ld/%ld.%03ld/%ld.%03ld ms\n",
